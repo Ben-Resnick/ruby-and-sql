@@ -14,11 +14,33 @@ Activity.destroy_all
 #   activity data in the database.  Afterwards, display a
 #   single salesperson's activity data:
 
+
+puts "Contacts: #{CPmtact.all.count}"
+
 # 1. insert 3 rows in the activities table with relationships to
 # a single salesperson and 2 different contacts
 
+apple = Company.find_by({"name" => "Apple"})
+puts Apple.inspect
+
+
+contact = Contact.new
+contact["first_name"] = "Tim"
+contact["last_name"] = "Cook"
+contact["email"] = "tim@apple.com"
+contact["company_ID"] = apple["ID"]
+contact.save
+puts contact.inspect
+
+puts "Contacts: #{CPmtact.all.count}"
+
 # 2. Display all the activities between the salesperson used above
 # and one of the contacts (sample output below):
+
+apple_contacts = Contact.where[{ "company_ID" => apple["id"]}]
+puts "Apple peeps: #{apple_contacts.count}"
+
+
 
 # ---------------------------------
 # Activities between Ben and Tim Cook:
